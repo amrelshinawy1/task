@@ -39,7 +39,7 @@ class MapComponent extends React.Component {
               const { properties, geometry } = json.nearest.station;
               const distant = json.closest_distance.toFixed(2);
               var marker = L.marker([geometry.coordinates[1], geometry.coordinates[0]]).addTo(mymap);
-              marker.bindPopup(`<b>Here is the nearest gas station <strong>${properties.name}</strong> is away from here ${distant} meter </b>`).openPopup();
+              marker.bindPopup(`<b>Here is the nearest gas station ${properties.name} is away from here ${distant} meter </b>`).openPopup();
             });
         }
         mymap.on('click', onMapClick);
