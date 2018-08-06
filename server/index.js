@@ -27,7 +27,7 @@ app.get('/getNearest', (req, res) => {
       nearest = arrayOfCoordinates[i];
     }
   }
-  res.send(nearest)
+  res.send({ nearest: nearest, closest_distance: closest_distance })
 })
 //To find distance between 2 points using (Haversine formula):
 function distance(position1, position2) {

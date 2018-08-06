@@ -36,9 +36,10 @@ class MapComponent extends React.Component {
           fetch(`http://localhost:3000/getNearest/?lat=${e.latlng.lat + '&lng=' + e.latlng.lng}`)
             .then(response => response.json())
             .then((json) => {
-              const { properties, geometry } = json.station;
+              const { properties, geometry } = json.nearest.station;
+              const distant = json.closest_distance.toFixed(2);
               var marker = L.marker([geometry.coordinates[1], geometry.coordinates[0]]).addTo(mymap);
-              marker.bindPopup("<b>Here is the nearest gas station</b>").openPopup();
+              marker.bindPopup(`<b>Here is the nearest gas station <strong>${properties.name}</strong> is away from here ${distant} meter </b>`).openPopup();
             });
         }
         mymap.on('click', onMapClick);
