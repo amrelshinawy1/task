@@ -31,7 +31,19 @@ class MapComponent extends React.Component {
         var marker = L.marker([this.state.coordinates[1], this.state.coordinates[0]]).addTo(mymap);
         marker.bindPopup("<b>Here is the first gas station</b>").openPopup();
         this.map.addLayer(osm);
+
+        function onMapClick(e) {
+          fetch(`http://localhost:3000/getNearest/?lat=${e.latlng.lat + '&lng=' + e.latlng.lng}`)
+            .then(response => response.json())
+            .then((json) => {
+              const { properties, geometry } = json.station;
+              var marker = L.marker([geometry.coordinates[1], geometry.coordinates[0]]).addTo(mymap);
+              marker.bindPopup("<b>Here is the nearest gas station</b>").openPopup();
+            });
+        }
+        mymap.on('click', onMapClick);
       });
+
   }
   render() {
     return (
